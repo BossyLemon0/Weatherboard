@@ -1,0 +1,23 @@
+.grad{
+    background-color: #0cbaba;
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+}
+.Hcolor{
+    color:white ;
+}
+
+.new{
+    margin-right: auto;
+    margin-left: 0;
+    max-width:540px;
+}
+.row{
+    margin-right:0px;
+    margin-left: 0px;
+}
+.padding{
+padding-top: 20px;
+}
+.tron{
+    padding: 0px;
+}
