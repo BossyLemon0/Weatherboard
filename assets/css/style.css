@@ -11,13 +11,25 @@
     margin-left: 0;
     max-width:540px;
 }
+
 .row{
     margin-right:0px;
     margin-left: 0px;
 }
+
 .padding{
 padding-top: 20px;
 }
+
 .tron{
     padding: 0px;
+}
+
+.listy{
+    list-style-type: none;
+}
+
+.UV{
+    background-color: turquoise;
+    width: 82px;
 }
