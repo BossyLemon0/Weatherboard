@@ -14,6 +14,10 @@ var TEMP = []
 var WIND = []
 var UVI = []
 var dayinfo = []
+var uvindex;
+var windspeed;
+var temp;
+var hum;
 
 
 
@@ -117,14 +121,14 @@ function displayinfo() {
         console.log(dayinfo[L][i]);
 
         if(L==0){
-          var hum = document.createElement('p');
+          hum = document.createElement('p');
           hum.classList.add("listy")
           hum.textContent = ("Humidity: " + dayinfo[L][i] + "");
           List2[i].appendChild(hum);
         }
 
         if (L==1){
-          var temp = document.createElement('p');
+          temp = document.createElement('p');
           temp.classList.add("listy")
           temp.textContent = ("Temp: " + dayinfo[L][i] + "°");
           List2[i].appendChild(temp);
@@ -132,7 +136,7 @@ function displayinfo() {
         }
 
         if(L==2){
-          var windspeed = document.createElement('p');
+          windspeed = document.createElement('p');
           windspeed.classList.add("listy")
           windspeed.textContent = ("wind: " + dayinfo[L][i] + "");
           List2[i].appendChild(windspeed);
@@ -142,7 +146,7 @@ function displayinfo() {
         //this is the logic to add colors to the current uvi depending on how high it is
         if(L==3){
           if(i == 0){
-            var uvindex = document.createElement('div');
+             uvindex = document.createElement('div');
               if(dayinfo[L][i]<3){
               uvindex.classList.add("UVL")
               }
@@ -162,7 +166,7 @@ function displayinfo() {
             List2[i].appendChild(uvindex);
             }
           else{
-          var uvindex = document.createElement('p');
+          uvindex = document.createElement('p');
           uvindex.classList.add("listy")
           uvindex.textContent = ("UVI: " + dayinfo[L][i] + "");
           List2[i].appendChild(uvindex);
