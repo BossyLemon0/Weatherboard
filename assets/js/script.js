@@ -10,6 +10,7 @@ var DateTime = luxon.DateTime;
 var HUMIDITY = []
 var DAYS1 = []
 var DAYS2 = []
+var DAYS3 = []
 var TEMP = []
 var WIND = []
 var UVI = []
@@ -121,17 +122,25 @@ function getApi(requestUrl) {
  
 
 function DAYCHOPTOHEAD(timezone) {
-  var tint = parseInt(DAYS1[0], 10)
-  var overrideZone = DateTime.fromSeconds(tint, { zone: timezone });
 
-  console.log(overrideZone.toLocaleString())
+
+
+  //doesn't convert to set timezone
   for (let index = 0; index < 6; index++) {
-    var int = parseInt(DAYS1[index], 10)
-    DAYS2.push(DateTime.fromSeconds(int).toLocaleString());
-    
-    // console.log(eztest[index]);
+    // var int = parseInt(DAYS1[index], 10)
+    // DAYS2.push(DateTime.fromSeconds(int).toLocaleString());
+    // // console.log(eztest[index]);
+    // eztest[index].textContent = DAYS2[index];
+
+    //test to convert to timezone
+    var tint = parseInt(DAYS1[index], 10);
+    var overrideZone = DateTime.fromSeconds(tint, { zone: timezone });
+    console.log(overrideZone.toLocaleString());
+    DAYS2.push(overrideZone.toLocaleString());
     eztest[index].textContent = DAYS2[index];
+
   }
+  console.log(DAYS3);
   displayinfo();
 }
 
@@ -239,3 +248,4 @@ function displayinfo() {
 // getApi(requestURl)
 
 buttons.addEventListener("click", buttonClicker)
+//Omar D. Ramirez
