@@ -1,7 +1,11 @@
-var requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat=29.74&lon=-95.46&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681'
+var lat = 29.74;
+var long = -95.46;
+// change();
+var requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
 var eztest = document.querySelectorAll(".head");
 var List = document.querySelectorAll("ul");
 var List2 = document.querySelectorAll(".listal")
+var buttons = document.querySelector(".list-group")
 var DateTime = luxon.DateTime;
 var HUMIDITY = []
 var DAYS1 = []
@@ -9,22 +13,51 @@ var DAYS2 = []
 var TEMP = []
 var WIND = []
 var UVI = []
-var dayinfo=[]
-
+var dayinfo = []
 
 dayinfo.push(HUMIDITY, TEMP, WIND, UVI, );
 
+function change(target){
+  console.log(target);
+  // requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
+  // getApi(requestURl);
+  //Chicago
+  if(target == "Chicago"){
+  lat = 29.74
+  long = -95.46
+  }
+  //Tokyo
+  lat = 35.68321
+  long =139.80894
+  //Denver
+  lat = 39.45
+  long = 104.59
+}
 
-console.log(List[1]);
+var buttonClicker = function(event){
+  var timezone = event.target.getAttribute('data-timezone');
+  console.log(timezone);
+  if (timezone){
+    change(timezone);
+  }
+  
+}
 
 function getApi(requestUrl) {
     fetch(requestUrl)
       .then(function (response) {
-        console.log(response.status);
+        if (response.status !== 200){
+          alert("their was an issue getting the data");
+          console.log(response.status);
+        }
+        else{
         return response.json();
+        }
       })
       .then(function (data) {
           DATA = data.daily
+          console.log(DATA);
+          console.log(data.timezone);
           for (var i = 0; i < DATA.length; i++){
             var days = (JSON.stringify(data.daily[i].dt));
             DAYS1.push(days);
@@ -87,13 +120,29 @@ function displayinfo() {
           List2[i].appendChild(windspeed);
         }
 
+
+        //this is the logic to add colors to the current uvi depending on how high it is
         if(L==3){
           if(i == 0){
             var uvindex = document.createElement('div');
-          uvindex.classList.add("UV")
-          uvindex.textContent = ("UVI: " + dayinfo[L][i]);
-          List2[i].appendChild(uvindex);
-          }
+              if(dayinfo[L][i]<3){
+              uvindex.classList.add("UVL")
+              }
+              if(dayinfo[L][i]>=3 && dayinfo[L][i]<6){
+              uvindex.classList.add("UVM")
+              }
+              if(dayinfo[L][i]>=6 && dayinfo[L][i]<8){
+              uvindex.classList.add("UVH")
+              }
+              if(dayinfo[L][i]>=8 && dayinfo[L][i]<11){
+              uvindex.classList.add("UVVH")
+              }
+              if(dayinfo[L][i]>=11){
+                uvindex.classList.add("UVE")
+              }
+            uvindex.textContent = ("UVI: " + dayinfo[L][i]);
+            List2[i].appendChild(uvindex);
+            }
           else{
           var uvindex = document.createElement('p');
           uvindex.classList.add("listy")
@@ -102,6 +151,8 @@ function displayinfo() {
           }
         }
 
+
+      //This is the nightmare infinite loop, leave commented or face the consequence
       // while (L == 0){
       //   console.log("hey");
       // }
@@ -132,6 +183,6 @@ function displayinfo() {
   }
 }
   
-getApi(requestURl);
+getApi(requestURl)
 
-
+buttons.addEventListener("click", buttonClicker)

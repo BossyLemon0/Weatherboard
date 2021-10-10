@@ -29,7 +29,27 @@ padding-top: 20px;
     list-style-type: none;
 }
 
-.UV{
+.UVL{
     background-color: turquoise;
+    width: 82px;
+}
+
+.UVM{
+    background-color: rgb(245, 221, 9);
+    width: 82px;
+}
+
+.UVH{
+    background-color: rgb(245, 141, 22);
+    width: 82px;
+}
+
+.UVVH{
+    background-color: rgb(165, 11, 11);
+    width: 82px;
+}
+
+.VHE{
+    background-color: #ee0ce3;
     width: 82px;
 }
