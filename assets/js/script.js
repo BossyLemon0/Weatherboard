@@ -15,23 +15,35 @@ var WIND = []
 var UVI = []
 var dayinfo = []
 
-dayinfo.push(HUMIDITY, TEMP, WIND, UVI, );
+
 
 function change(target){
   console.log(target);
-  // requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
-  // getApi(requestURl);
+  //resets what's in the arrays;
+  TEMP.length = 0;
+  WIND.length = 0;
+  UVI.length = 0;
+  HUMIDITY.length = 0;
+  console.log(dayinfo);
   //Chicago
   if(target == "Chicago"){
   lat = 29.74
   long = -95.46
   }
   //Tokyo
+  if(target == "Tokyo")
   lat = 35.68321
   long =139.80894
   //Denver
+  if(target == "Denver")
   lat = 39.45
   long = 104.59
+
+  requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
+  getApi(requestURl);
+  // console.log(lat);
+  // console.log(long);
+  // console.log(DAYS2);
 }
 
 var buttonClicker = function(event){
@@ -69,8 +81,9 @@ function getApi(requestUrl) {
             WIND.push(wind);
             var uvi = (JSON.stringify(data.daily[i].uvi));
             UVI.push(uvi);
-            
-         }   
+         }  
+         dayinfo.push(HUMIDITY, TEMP, WIND, UVI, );
+
          DAYCHOPTOHEAD();
       });
   }
@@ -79,9 +92,10 @@ function DAYCHOPTOHEAD() {
 
 
 console.log(DAYS1[1]);
-  for (let index = 0; index < DAYS1.length-2; index++) {
+  for (let index = 0; index < 6; index++) {
     var int = parseInt(DAYS1[index], 10)
     DAYS2.push(DateTime.fromSeconds(int).toLocaleString());
+    console.log(eztest[index]);
     eztest[index].textContent = DAYS2[index];
   }
   displayinfo();
@@ -93,9 +107,13 @@ function displayinfo() {
 // var hum = dayinfo[0][0];
 // var hum2 = hum[0];
 // console.log(hum);
+// hum.textContent = '';
+// temp.textContent = '';
+// windspeed.textContent = '';
+// uvindex.textContent = '';
 
   for (let L = 0; L < 4; L++) {
-      for (let i = 0; i < DAYS1.length-2; i++) {
+      for (let i = 0; i < 6; i++) {
         console.log(dayinfo[L][i]);
 
         if(L==0){
@@ -148,6 +166,7 @@ function displayinfo() {
           uvindex.classList.add("listy")
           uvindex.textContent = ("UVI: " + dayinfo[L][i] + "");
           List2[i].appendChild(uvindex);
+          DAYS1 =[];
           }
         }
 
@@ -183,6 +202,6 @@ function displayinfo() {
   }
 }
   
-getApi(requestURl)
+// getApi(requestURl)
 
 buttons.addEventListener("click", buttonClicker)
