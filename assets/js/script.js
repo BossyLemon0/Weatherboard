@@ -19,15 +19,31 @@ var windspeed;
 var temp;
 var hum;
 
-
-
-function change(target){
-  console.log(target);
-  //resets what's in the arrays;
+function reset(){
   TEMP.length = 0;
   WIND.length = 0;
   UVI.length = 0;
   HUMIDITY.length = 0;
+  for (let dex = 0; dex < List2.length; dex++) {
+    List2[dex].innerHTML = '';
+   
+ }
+}
+
+function change(target){
+  console.log(target);
+  //resets what's in the arrays;
+  reset();
+
+
+  console.log(uvindex);
+  // for (let i = 0; i < 6; i++){
+  // uvindex[i].textContent = '';
+  // windspeed[i].textContent = '';
+  // temp[i].textContent = '';
+  // hum[i].textContent = '';
+  // }
+
   console.log(dayinfo);
   //Chicago
   if(target == "Chicago"){
