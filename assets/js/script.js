@@ -1,5 +1,5 @@
-var lat = 29.74;
-var long = -95.46;
+var lat;
+var long;
 // change();
 var requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
 var eztest = document.querySelectorAll(".head");
@@ -20,14 +20,19 @@ var temp;
 var hum;
 
 function reset(){
+  DAYS1.length = 0;
+  DAYS2.length = 0;
   TEMP.length = 0;
   WIND.length = 0;
   UVI.length = 0;
   HUMIDITY.length = 0;
   for (let dex = 0; dex < List2.length; dex++) {
     List2[dex].innerHTML = '';
-   
+    eztest[dex].innerHTML = '';
+       
  }
+ console.log(DAYS1);
+ console.log(DAYS2);
 }
 
 function change(target){
@@ -50,16 +55,20 @@ function change(target){
   lat = 29.74
   long = -95.46
   }
-  //Tokyo
-  if(target == "Tokyo")
+  // //Tokyo
+  if(target == "Tokyo"){
   lat = 35.68321
-  long =139.80894
-  //Denver
-  if(target == "Denver")
-  lat = 39.45
-  long = 104.59
+  long = 139.80894
+  }
+  // //Denver
+  if(target == "Denver"){
+  lat = 39.73
+  long = -104.989
+  }
 
   requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
+  console.log(lat)
+  console.log(long);
   getApi(requestURl);
   // console.log(lat);
   // console.log(long);
@@ -101,21 +110,26 @@ function getApi(requestUrl) {
             WIND.push(wind);
             var uvi = (JSON.stringify(data.daily[i].uvi));
             UVI.push(uvi);
+            console.log(data.timezone);
          }  
          dayinfo.push(HUMIDITY, TEMP, WIND, UVI, );
 
-         DAYCHOPTOHEAD();
+         DAYCHOPTOHEAD(data.timezone);
       });
   }
 
-function DAYCHOPTOHEAD() {
+ 
 
+function DAYCHOPTOHEAD(timezone) {
+  var tint = parseInt(DAYS1[0], 10)
+  var overrideZone = DateTime.fromSeconds(tint, { zone: timezone });
 
-console.log(DAYS1[1]);
+  console.log(overrideZone.toLocaleString())
   for (let index = 0; index < 6; index++) {
     var int = parseInt(DAYS1[index], 10)
     DAYS2.push(DateTime.fromSeconds(int).toLocaleString());
-    console.log(eztest[index]);
+    
+    // console.log(eztest[index]);
     eztest[index].textContent = DAYS2[index];
   }
   displayinfo();
@@ -134,7 +148,7 @@ function displayinfo() {
 
   for (let L = 0; L < 4; L++) {
       for (let i = 0; i < 6; i++) {
-        console.log(dayinfo[L][i]);
+        // console.log(dayinfo[L][i]);
 
         if(L==0){
           hum = document.createElement('p');
@@ -186,7 +200,7 @@ function displayinfo() {
           uvindex.classList.add("listy")
           uvindex.textContent = ("UVI: " + dayinfo[L][i] + "");
           List2[i].appendChild(uvindex);
-          DAYS1 =[];
+          
           }
         }
 
