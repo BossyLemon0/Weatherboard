@@ -165,7 +165,7 @@ function DAYCHOPTOHEAD(timezone) {
   displayinfo();
   countrysplit = timezone.split("/");
 
-  console.log(city);
+  console.log(countrysplit);
 
 
   //doesn't convert to set timezone
@@ -180,9 +180,14 @@ function DAYCHOPTOHEAD(timezone) {
     var tint = parseInt(DAYS1[index], 10);
     var overrideZone = DateTime.fromSeconds(tint, { zone: timezone });
     console.log(overrideZone.toLocaleString());
+    if (index == 0){
     DAYS2.push(countrysplit[1] +" "+ overrideZone.toLocaleString());
-    eztest[index].textContent = DAYS2[index];
-
+    eztest[0].textContent = DAYS2[0];
+    }
+    if (index > 0) {
+      DAYS2.push(overrideZone.toLocaleString());
+      eztest[index].textContent = DAYS2[index];
+    }
   }
   console.log(DAYS3);
   
