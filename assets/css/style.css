@@ -6,6 +6,14 @@
     color:white ;
 }
 
+.H{
+    font-size: 45px;
+    font-weight: bold;
+}
+.emoji{
+    display: inline;
+}
+
 .new{
     margin-right: auto;
     margin-left: 0;
@@ -15,6 +23,9 @@
 .row{
     margin-right:0px;
     margin-left: 0px;
+}
+.boxx{
+    height: 257px;
 }
 
 .padding{
@@ -29,27 +40,32 @@ padding-top: 20px;
     list-style-type: none;
 }
 
+.uvblock{
+    display: inline-flex;
+}
+
+.w{
+    text-align: center;
+    width: 69px;
+    border-radius: 25px;
+}
+
 .UVL{
     background-color: turquoise;
-    width: 82px;
 }
 
 .UVM{
     background-color: rgb(245, 221, 9);
-    width: 82px;
 }
 
 .UVH{
     background-color: rgb(245, 141, 22);
-    width: 82px;
 }
 
 .UVVH{
     background-color: rgb(165, 11, 11);
-    width: 82px;
 }
 
-.VHE{
+.UVE{
     background-color: #ee0ce3;
-    width: 82px;
 }

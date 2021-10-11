@@ -19,6 +19,7 @@ var uvindex;
 var windspeed;
 var temp;
 var hum;
+var countrysplit = "";
 
 function reset(){
   DAYS1.length = 0;
@@ -53,18 +54,59 @@ function change(target){
   console.log(dayinfo);
   //Chicago
   if(target == "Chicago"){
-  lat = 29.74
-  long = -95.46
+    lat = 41.88425
+    long = -87.63245
   }
-  // //Tokyo
+  //Tokyo
   if(target == "Tokyo"){
-  lat = 35.68321
-  long = 139.80894
+    lat = 35.68321
+    long = 139.80894
   }
-  // //Denver
+  //Denver
   if(target == "Denver"){
-  lat = 39.73
-  long = -104.989
+    lat = 39.73
+    long = -104.989
+  }
+  // New York
+  if (target == "NY"){
+    lat = 40.71455
+    long = -74.00712
+  }
+    // houston
+  if (target == "Sydney"){
+    lat = -33.8696
+    long = 151.20695
+  }
+      // Moscow
+  if (target == "Moscow"){
+    lat = 55.75697
+    long = 37.61502
+  }
+    // Reyjavik
+  if (target == "Reykjavík"){
+    lat = 64.14721
+    long = -21.9424
+  }
+      // london
+  if (target == "London"){
+    lat = 51.500153
+    long = -0.1262362
+  }
+  if (target == "Toronto"){
+    lat = 43.6487
+    long = -79.38544
+  }
+  if (target == "Juneau"){
+    lat = 58.300323
+    long = -134.41763
+  }
+  if (target == "Monterrey"){
+    lat = 25.6828
+    long = -100.31164
+  }
+  if(target == "Tegucigalpa"){
+    lat = 14.10576
+    long = -87.2042
   }
 
   requestURl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ long +'&units=imperial&exclude=minutely,hourly&appid=d878f5584537405a3385fd42ab6df681';
@@ -89,7 +131,7 @@ function getApi(requestUrl) {
     fetch(requestUrl)
       .then(function (response) {
         if (response.status !== 200){
-          alert("their was an issue getting the data");
+          alert("There was an issue getting your data, try again later");
           console.log(response.status);
         }
         else{
@@ -119,14 +161,16 @@ function getApi(requestUrl) {
       });
   }
 
- 
-
 function DAYCHOPTOHEAD(timezone) {
+  displayinfo();
+  countrysplit = timezone.split("/");
 
+  console.log(city);
 
 
   //doesn't convert to set timezone
   for (let index = 0; index < 6; index++) {
+
     // var int = parseInt(DAYS1[index], 10)
     // DAYS2.push(DateTime.fromSeconds(int).toLocaleString());
     // // console.log(eztest[index]);
@@ -136,12 +180,12 @@ function DAYCHOPTOHEAD(timezone) {
     var tint = parseInt(DAYS1[index], 10);
     var overrideZone = DateTime.fromSeconds(tint, { zone: timezone });
     console.log(overrideZone.toLocaleString());
-    DAYS2.push(overrideZone.toLocaleString());
+    DAYS2.push(countrysplit[1] +" "+ overrideZone.toLocaleString());
     eztest[index].textContent = DAYS2[index];
 
   }
   console.log(DAYS3);
-  displayinfo();
+  
 }
 
 function displayinfo() {
@@ -162,7 +206,7 @@ function displayinfo() {
         if(L==0){
           hum = document.createElement('p');
           hum.classList.add("listy")
-          hum.textContent = ("Humidity: " + dayinfo[L][i] + "");
+          hum.textContent = ("Humidity: " + dayinfo[L][i] + "%");
           List2[i].appendChild(hum);
         }
 
@@ -177,7 +221,7 @@ function displayinfo() {
         if(L==2){
           windspeed = document.createElement('p');
           windspeed.classList.add("listy")
-          windspeed.textContent = ("wind: " + dayinfo[L][i] + "");
+          windspeed.textContent = ("Wind: " + dayinfo[L][i] + "MPH");
           List2[i].appendChild(windspeed);
         }
 
@@ -185,24 +229,30 @@ function displayinfo() {
         //this is the logic to add colors to the current uvi depending on how high it is
         if(L==3){
           if(i == 0){
+             uvindexmain = document.createElement('div');
+             uvindextext = document.createElement('div');
              uvindex = document.createElement('div');
+             uvindexmain.classList.add("uvblock")
               if(dayinfo[L][i]<3){
-              uvindex.classList.add("UVL")
+              uvindex.classList.add("UVL", "w")
               }
               if(dayinfo[L][i]>=3 && dayinfo[L][i]<6){
-              uvindex.classList.add("UVM")
+              uvindex.classList.add("UVM", "w")
               }
               if(dayinfo[L][i]>=6 && dayinfo[L][i]<8){
-              uvindex.classList.add("UVH")
+              uvindex.classList.add("UVH", "w")
               }
               if(dayinfo[L][i]>=8 && dayinfo[L][i]<11){
-              uvindex.classList.add("UVVH")
+              uvindex.classList.add("UVVH", "w")
               }
               if(dayinfo[L][i]>=11){
-                uvindex.classList.add("UVE")
+                uvindex.classList.add("UVE","w")
               }
-            uvindex.textContent = ("UVI: " + dayinfo[L][i]);
-            List2[i].appendChild(uvindex);
+            uvindextext.textContent = "UV index: "
+            uvindex.textContent = (dayinfo[L][i]);
+            uvindexmain.appendChild(uvindextext)
+            uvindexmain.appendChild(uvindex);
+            List2[i].appendChild(uvindexmain);
             }
           else{
           uvindex = document.createElement('p');
